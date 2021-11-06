@@ -28,8 +28,4 @@ impl IsolateState {
             None => unsafe { std::hint::unreachable_unchecked() },
         }
     }
-
-    pub fn drop_context(&mut self) {
-        self.context.take();
-    }
 }

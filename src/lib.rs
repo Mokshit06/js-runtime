@@ -3,6 +3,7 @@ mod isolate_state;
 mod js_loading;
 mod module;
 mod script;
+mod validator;
 
 use isolate_state::IsolateState;
 use v8;
