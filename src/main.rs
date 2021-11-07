@@ -8,8 +8,6 @@ struct Opt {
     filename: String,
 }
 
-// class Opt { filename: string }
-
 fn main() {
     let opt = Opt::from_args();
 

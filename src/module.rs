@@ -1,5 +1,6 @@
 use crate::isolate_state::IsolateState;
 use crate::js_loading;
+use crate::transformer;
 use std::collections::HashMap;
 use std::path::Path;
 use v8;
@@ -107,8 +108,9 @@ fn resolve<'a>(
 
     let requested_string = v8::String::new(scope, &requested_abs_path).unwrap();
     let origin = js_loading::create_script_origin(scope, requested_string, true);
-    let js_src = std::fs::read_to_string(&requested_abs_path)
+    let src = std::fs::read_to_string(&requested_abs_path)
         .expect("Something went wrong with reading the file");
+    let js_src = transformer::transform(requested_abs_path.clone(), src).code;
     let code = v8::String::new(scope, &js_src).unwrap();
     let source = v8::script_compiler::Source::new(code, Some(&origin));
 
